@@ -37,22 +37,38 @@ public class BreachRecord {
         detectedAt = LocalDateTime.now();
         resolved = false;
     }
-
-    // Getters and Setters
-    public Long getId() { return id; }
-    public Long getShipmentId() { return shipmentId; }
+    public Long getId() {
+    return id; 
+    }
+    public Long getShipmentId() {
+     return shipmentId;
+      }
     public void setShipmentId(Long shipmentId) { this.shipmentId = shipmentId; }
-    public Long getLogId() { return logId; }
+    public Long getLogId() {
+     return logId;
+      }
     public void setLogId(Long logId) { this.logId = logId; }
-    public String getBreachType() { return breachType; }
+    public String getBreachType() { 
+    return breachType; 
+    }
     public void setBreachType(String breachType) { this.breachType = breachType; }
-    public Double getBreachValue() { return breachValue; }
+    public Double getBreachValue() {
+     return breachValue;
+      }
     public void setBreachValue(Double breachValue) { this.breachValue = breachValue; }
-    public String getSeverity() { return severity; }
+    public String getSeverity() {
+     return severity;
+      }
     public void setSeverity(String severity) { this.severity = severity; }
-    public String getDetails() { return details; }
+    public String getDetails() { 
+    return details;
+     }
     public void setDetails(String details) { this.details = details; }
-    public LocalDateTime getDetectedAt() { return detectedAt; }
-    public Boolean getResolved() { return resolved; }
+    public LocalDateTime getDetectedAt() {
+     return detectedAt; 
+     }
+    public Boolean getResolved() {
+     return resolved; 
+     }
     public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }

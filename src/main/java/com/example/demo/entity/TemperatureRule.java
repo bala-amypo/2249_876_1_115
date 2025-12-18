@@ -43,19 +43,31 @@ public class TemperatureRule {
             throw new IllegalArgumentException("minTemp must be less than maxTemp");
         }
     }
-
-    // Getters and Setters
-    public Long getId() { return id; }
-    public String getProductType() { return productType; }
+    public Long getId() {
+     return id;
+      }
+    public String getProductType() {
+     return productType;
+      }
     public void setProductType(String productType) { this.productType = productType; }
-    public Double getMinTemp() { return minTemp; }
+    public Double getMinTemp() { 
+    return minTemp;
+     }
     public void setMinTemp(Double minTemp) { this.minTemp = minTemp; }
-    public Double getMaxTemp() { return maxTemp; }
+    public Double getMaxTemp() { 
+    return maxTemp;
+     }
     public void setMaxTemp(Double maxTemp) { this.maxTemp = maxTemp; }
-    public Boolean getActive() { return active; }
+    public Boolean getActive() { 
+    return active;
+     }
     public void setActive(Boolean active) { this.active = active; }
-    public LocalDate getEffectiveFrom() { return effectiveFrom; }
+    public LocalDate getEffectiveFrom() { 
+    return effectiveFrom;
+     }
     public void setEffectiveFrom(LocalDate effectiveFrom) { this.effectiveFrom = effectiveFrom; }
-    public LocalDate getEffectiveTo() { return effectiveTo; }
+    public LocalDate getEffectiveTo() { 
+    return effectiveTo;
+     }
     public void setEffectiveTo(LocalDate effectiveTo) { this.effectiveTo = effectiveTo; }
 }
