@@ -20,8 +20,7 @@ public class AlertRecord {
 
     public AlertRecord() {}
 
-    public AlertRecord(Long shipmentId, Long breachId,
-                       String alertType, String message) {
+    public AlertRecord(Long shipmentId, Long breachId, String alertType, String message) {
         this.shipmentId = shipmentId;
         this.breachId = breachId;
         this.alertType = alertType;
@@ -33,8 +32,6 @@ public class AlertRecord {
         sentAt = LocalDateTime.now();
         acknowledged = false;
     }
-
-    // Getters and Setters
     public Long getId() { 
     return id;
     }

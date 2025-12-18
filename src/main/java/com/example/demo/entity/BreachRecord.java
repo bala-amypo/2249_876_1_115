@@ -22,8 +22,7 @@ public class BreachRecord {
 
     public BreachRecord() {}
 
-    public BreachRecord(Long shipmentId, Long logId, String breachType,
-                        Double breachValue, String severity, String details) {
+    public BreachRecord(Long shipmentId, Long logId, String breachType, Double breachValue, String severity, String details) {
         this.shipmentId = shipmentId;
         this.logId = logId;
         this.breachType = breachType;

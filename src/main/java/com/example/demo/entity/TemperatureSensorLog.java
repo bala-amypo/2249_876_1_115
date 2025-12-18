@@ -19,8 +19,7 @@ public class TemperatureSensorLog {
 
     public TemperatureSensorLog() {}
 
-    public TemperatureSensorLog(Long shipmentId, String sensorId,
-                                Double temperatureValue, String location) {
+    public TemperatureSensorLog(Long shipmentId, String sensorId,Double temperatureValue, String location) {
         this.shipmentId = shipmentId;
         this.sensorId = sensorId;
         this.temperatureValue = temperatureValue;

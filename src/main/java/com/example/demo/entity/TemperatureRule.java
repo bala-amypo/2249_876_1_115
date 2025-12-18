@@ -25,9 +25,7 @@ public class TemperatureRule {
 
     public TemperatureRule() {}
 
-    public TemperatureRule(String productType, Double minTemp, Double maxTemp,
-                           Boolean active, LocalDate effectiveFrom,
-                           LocalDate effectiveTo) {
+    public TemperatureRule(String productType, Double minTemp, Double maxTemp,Boolean active, LocalDate effectiveFrom,LocalDate effectiveTo) {
         this.productType = productType;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;

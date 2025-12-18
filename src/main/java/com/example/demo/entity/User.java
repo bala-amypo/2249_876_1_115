@@ -28,11 +28,7 @@ public class User {
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
-    // ✅ Default constructor (required by JPA)
     public User() {}
-
-    // ✅ Parameterized constructor
     public User(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;

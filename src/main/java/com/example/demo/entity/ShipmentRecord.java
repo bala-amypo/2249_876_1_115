@@ -25,9 +25,7 @@ public class ShipmentRecord {
     private String status;
     private LocalDateTime createdAt;
     public ShipmentRecord() {}
-    public ShipmentRecord(String shipmentCode, String origin, String destination,
-                          String productType, LocalDateTime startDate,
-                          LocalDateTime expectedDelivery) {
+    public ShipmentRecord(String shipmentCode, String origin, String destination,String productType, LocalDateTime startDate,LocalDateTime expectedDelivery) {
         this.shipmentCode = shipmentCode;
         this.origin = origin;
         this.destination = destination;
