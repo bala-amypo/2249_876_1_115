@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-// @Table(name = "alert_record")
+@Table(name = "alert_record")
 public class AlertRecord {
 
     @Id
@@ -35,15 +35,30 @@ public class AlertRecord {
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public Long getShipmentId() { return shipmentId; }
+    public Long getId() { 
+    return id;
+    }
+    public Long getShipmentId() { 
+    return shipmentId; 
+    }
     public void setShipmentId(Long shipmentId) { this.shipmentId = shipmentId; }
-    public Long getBreachId() { return breachId; }
+    public Long getBreachId() { 
+    return breachId; 
+    }
     public void setBreachId(Long breachId) { this.breachId = breachId; }
-    public String getAlertType() { return alertType; }
+    public String getAlertType() {
+     return alertType;
+      }
     public void setAlertType(String alertType) { this.alertType = alertType; }
-    public String getMessage() { return message; }
+    public String getMessage() { 
+    return message;
+     }
     public void setMessage(String message) { this.message = message; }
-    public LocalDateTime getSentAt() { return sentAt; }
-    public Boolean getAcknowledged() { return acknowledged; }
-    public void setAcknowledged(Boolea
+    public LocalDateTime getSentAt() {
+     return sentAt; 
+     }
+    public Boolean getAcknowledged() {
+     return acknowledged;
+      }
+    public void setAcknowledged(Boolean acknowledged) { this.acknowledged = acknowledged; }
+}
