@@ -1,15 +1,9 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Data
-@Getter
-@Setter
 public class TemperatureRule {
 
     @Id
@@ -18,6 +12,48 @@ public class TemperatureRule {
 
     private Double minTemp;
     private Double maxTemp;
-    private LocalDateTime effectiveFrom;
-    private LocalDateTime effectiveTo;
+    private LocalDate effectiveFrom;
+    private LocalDate effectiveTo;
+
+    public TemperatureRule() {}
+
+    public Long getId() {
+        return id;
+    }
+ 
+    public void setId(Long id) {
+        this.id = id;
+    }
+ 
+    public Double getMinTemp() {
+        return minTemp;
+    }
+ 
+    public void setMinTemp(Double minTemp) {
+        this.minTemp = minTemp;
+    }
+ 
+    public Double getMaxTemp() {
+        return maxTemp;
+    }
+ 
+    public void setMaxTemp(Double maxTemp) {
+        this.maxTemp = maxTemp;
+    }
+ 
+    public LocalDate getEffectiveFrom() {
+        return effectiveFrom;
+    }
+ 
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+ 
+    public LocalDate getEffectiveTo() {
+        return effectiveTo;
+    }
+ 
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
+    }
 }
