@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@D
+@Data
 @Getter
 @Setter
 public class TemperatureRule {
