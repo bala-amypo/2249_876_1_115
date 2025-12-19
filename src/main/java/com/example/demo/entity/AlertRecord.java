@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "alert_records")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AlertRecord {

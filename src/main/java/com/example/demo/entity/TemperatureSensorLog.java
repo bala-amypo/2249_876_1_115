@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "temperature_sensor_logs")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TemperatureSensorLog {
