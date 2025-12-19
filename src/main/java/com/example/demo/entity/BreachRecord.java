@@ -1,13 +1,6 @@
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import lombok.*;
-
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class BreachRecord {
 
     @Id
