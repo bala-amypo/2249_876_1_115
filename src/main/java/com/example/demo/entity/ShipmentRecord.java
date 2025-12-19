@@ -1,66 +1,39 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(
-    name = "shipments",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "shipment_code")
-    }
-)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Shipment {
-
+@Table(name = "shipment_records")
+public class ShipmentRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "Shipment code is required")
-    @Column(name = "shipment_code", nullable = false, unique = true)
     private String shipmentCode;
-
     private String origin;
-
     private String destination;
-
-    @NotBlank(message = "Product type is required")
-    private String productType;
-
     private String status;
-
     private LocalDateTime createdAt;
 
-    /* ================= RELATIONSHIPS ================= */
+    @OneToMany(mappedBy = "shipment")
+    private List<TemperatureSensorLog> temperatureLogs;
 
-    @OneToMany(
-        mappedBy = "shipment",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
-    private List<TemperatureLog> temperatureLogs;
-
-    @OneToMany(
-        mappedBy = "shipment",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "shipment")
     private List<BreachRecord> breachRecords;
 
-    /* ================= LIFECYCLE ================= */
+    public ShipmentRecord() {}
+    public ShipmentRecord(String shipmentCode, String origin, String destination, String status) {
+        this.shipmentCode = shipmentCode;
+        this.origin = origin;
+        this.destination = destination;
+        this.status = status;
+    }
 
     @PrePersist
-    public void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.status = "CREATED";
+    public void prePersist() {
+        if(this.status == null) this.status = "IN_TRANSIT";
+        if(this.createdAt == null) this.createdAt = LocalDateTime.now();
     }
+    // Getters and setters
 }
