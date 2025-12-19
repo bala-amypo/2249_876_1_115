@@ -1,77 +1,66 @@
 package com.example.demo.entity;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(
-    name = "shipment_record",
-    uniqueConstraints = @UniqueConstraint(columnNames = "shipment_code")
+    name = "shipments",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "shipment_code")
+    }
 )
-public class ShipmentRecord {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Shipment code is required")
     @Column(name = "shipment_code", nullable = false, unique = true)
     private String shipmentCode;
 
     private String origin;
+
     private String destination;
+
+    @NotBlank(message = "Product type is required")
     private String productType;
-    private LocalDateTime startDate;
-    private LocalDateTime expectedDelivery;
+
     private String status;
+
     private LocalDateTime createdAt;
-    public ShipmentRecord() {}
-    public ShipmentRecord(String shipmentCode, String origin, String destination,String productType, LocalDateTime startDate,LocalDateTime expectedDelivery) {
-        this.shipmentCode = shipmentCode;
-        this.origin = origin;
-        this.destination = destination;
-        this.productType = productType;
-        this.startDate = startDate;
-        this.expectedDelivery = expectedDelivery;
-    }
+
+    /* ================= RELATIONSHIPS ================= */
+
+    @OneToMany(
+        mappedBy = "shipment",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<TemperatureLog> temperatureLogs;
+
+    @OneToMany(
+        mappedBy = "shipment",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<BreachRecord> breachRecords;
+
+    /* ================= LIFECYCLE ================= */
 
     @PrePersist
-    public void prePersist() {
+    public void onCreate() {
         this.createdAt = LocalDateTime.now();
-        if (this.status == null) {
-            this.status = "IN_TRANSIT";
-        }
+        this.status = "CREATED";
     }
-    public Long getId() { 
-    return id; 
-    }
-    public String getShipmentCode() {
-     return shipmentCode;
-     }
-    public void setShipmentCode(String shipmentCode) { this.shipmentCode = shipmentCode; }
-    public String getOrigin() { 
-    return origin;
-     }
-    public void setOrigin(String origin) { this.origin = origin; }
-    public String getDestination() { 
-    return destination;
-     }
-    public void setDestination(String destination) { this.destination = destination; }
-    public String getProductType() {
-     return productType;
-      }
-    public void setProductType(String productType) { this.productType = productType; }
-    public LocalDateTime getStartDate() { 
-    return startDate;
-     }
-    public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
-    public LocalDateTime getExpectedDelivery() {
-     return expectedDelivery;
-     }
-    public void setExpectedDelivery(LocalDateTime expectedDelivery) { this.expectedDelivery = expectedDelivery; }
-    public String getStatus() { 
-    return status;
-     }
-    public void setStatus(String status) { this.status = status; }
-    public LocalDateTime getCreatedAt() { 
-    return createdAt;
-     }
 }
