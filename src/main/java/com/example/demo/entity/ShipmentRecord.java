@@ -1,39 +1,50 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "shipment_records")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShipmentRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String shipmentCode;
+
     private String origin;
+
     private String destination;
+
     private String status;
+
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "shipment")
-    private List<TemperatureSensorLog> temperatureLogs;
+    private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "shipment")
-    private List<BreachRecord> breachRecords;
+    @PrePersist
+    public void prePersist() {
+        if (status == null) {
+            status = "IN_TRANSIT";
+        }
+        createdAt = LocalDateTime.now();
+    }
 
-    public ShipmentRecord() {}
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     public ShipmentRecord(String shipmentCode, String origin, String destination, String status) {
         this.shipmentCode = shipmentCode;
         this.origin = origin;
         this.destination = destination;
         this.status = status;
     }
-
-    @PrePersist
-    public void prePersist() {
-        if(this.status == null) this.status = "IN_TRANSIT";
-        if(this.createdAt == null) this.createdAt = LocalDateTime.now();
-    }
-    // Getters and setters
 }
