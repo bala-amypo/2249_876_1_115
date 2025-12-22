@@ -1,13 +1,13 @@
-package com.example.demo.dto;
+// package com.example.demo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+// import lombok.AllArgsConstructor;
+// import lombok.Getter;
 
-@Getter
-@AllArgsConstructor
-public class AuthResponse {
-    private Long userId;
-    private String email;
-    private String role;
-    private String token;
-}
+// @Getter
+// @AllArgsConstructor
+// public class AuthResponse {
+//     private Long userId;
+//     private String email;
+//     private String role;
+//     private String token;
+// }
