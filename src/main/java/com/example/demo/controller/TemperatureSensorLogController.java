@@ -1,36 +1,41 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.TemperatureSensorLog;
-import com.example.demo.repository.TemperatureSensorLogRepository;
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.TemperatureSensorLog;
+import com.example.demo.service.TemperatureLogService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/sensor-logs")
-public class TemperatureSensorLogController {
+@RequestMapping("/api/logs")
+@Tag(name = "Temperature Logs")
+public class TemperatureLogController {
 
-    private final TemperatureSensorLogRepository logRepository;
+    private final TemperatureLogService service;
 
-    public TemperatureSensorLogController(
-            TemperatureSensorLogRepository logRepository) {
-        this.logRepository = logRepository;
+    public TemperatureLogController(TemperatureLogService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public TemperatureSensorLog createLog(
-            @RequestBody TemperatureSensorLog log) {
-        return logRepository.save(log);
-    }
-
-    @GetMapping
-    public List<TemperatureSensorLog> getAllLogs() {
-        return logRepository.findAll();
+    public TemperatureSensorLog record(@RequestBody TemperatureSensorLog log) {
+        return service.recordLog(log);
     }
 
     @GetMapping("/shipment/{shipmentId}")
-    public List<TemperatureSensorLog> getLogsByShipmentId(
-            @PathVariable Long shipmentId) {
-        return logRepository.findByShipmentId(shipmentId);
+    public List<TemperatureSensorLog> getByShipment(@PathVariable Long shipmentId) {
+        return service.getLogsByShipment(shipmentId);
+    }
+
+    @GetMapping("/{id}")
+    public TemperatureSensorLog getById(@PathVariable Long id) {
+        return service.getLogById(id);
+    }
+
+    @GetMapping
+    public List<TemperatureSensorLog> getAll() {
+        return service.getAllLogs();
     }
 }
