@@ -1,28 +1,34 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.AlertRecord;
-import com.example.demo.repository.AlertRecordRepository;
-import com.example.demo.service.AlertService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
+import com.example.demo.exception.ResourceNotFoundException;
 
-import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Service
-public class AlertServiceImpl implements AlertService {
+public class UserServiceImpl implements UserService {
 
-    private final AlertRecordRepository alertRecordRepository;
+    private final UserRepository userRepo;
+    private final PasswordEncoder passwordEncoder;
 
-    public AlertServiceImpl(AlertRecordRepository alertRecordRepository) {
-        this.alertRecordRepository = alertRecordRepository;
+    public UserServiceImpl(UserRepository userRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public AlertRecord triggerAlert(AlertRecord alert) {
-        return alertRecordRepository.save(alert);
+    public User registerUser(User user) {
+        if (userRepo.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
     }
 
     @Override
-    public List<AlertRecord> getAlertsByShipment(Long shipmentId) {
-        return alertRecordRepository.findByShipmentId(shipmentId);
+    public User findByEmail(String email) {
+        return userRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }
