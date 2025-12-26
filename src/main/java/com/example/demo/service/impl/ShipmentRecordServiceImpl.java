@@ -1,13 +1,15 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.ShipmentRecord;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ShipmentRecordRepository;
 import com.example.demo.service.ShipmentRecordService;
-import com.example.demo.exception.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ShipmentRecordServiceImpl implements ShipmentRecordService {
 
     private final ShipmentRecordRepository shipmentRepo;
@@ -23,10 +25,11 @@ public class ShipmentRecordServiceImpl implements ShipmentRecordService {
 
     @Override
     public ShipmentRecord updateShipmentStatus(Long id, String newStatus) {
-        ShipmentRecord shipment = shipmentRepo.findById(id)
+        ShipmentRecord ship = shipmentRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));
-        shipment.setStatus(newStatus);
-        return shipmentRepo.save(shipment);
+
+        ship.setStatus(newStatus);
+        return shipmentRepo.save(ship);
     }
 
     @Override
