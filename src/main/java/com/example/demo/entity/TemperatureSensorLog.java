@@ -4,26 +4,20 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "temperature_sensor_logs")
 public class TemperatureSensorLog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private Long shipmentId;
     private Double temperatureValue;
-    private LocalDateTime recordedAt;
     private String location;
+    private LocalDateTime recordedAt;
 
-    public TemperatureSensorLog() {}
-
-    public TemperatureSensorLog(Long shipmentId, Double temperatureValue,
-                                LocalDateTime recordedAt, String location) {
-        this.shipmentId = shipmentId;
-        this.temperatureValue = temperatureValue;
-        this.recordedAt = recordedAt;
-        this.location = location;
+    @PrePersist
+    public void init() {
+        recordedAt = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
@@ -33,11 +27,12 @@ public class TemperatureSensorLog {
     public void setShipmentId(Long shipmentId) { this.shipmentId = shipmentId; }
 
     public Double getTemperatureValue() { return temperatureValue; }
-    public void setTemperatureValue(Double temperatureValue) { this.temperatureValue = temperatureValue; }
-
-    public LocalDateTime getRecordedAt() { return recordedAt; }
-    public void setRecordedAt(LocalDateTime recordedAt) { this.recordedAt = recordedAt; }
+    public void setTemperatureValue(Double temperatureValue) {
+        this.temperatureValue = temperatureValue;
+    }
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+
+    public LocalDateTime getRecordedAt() { return recordedAt; }
 }
