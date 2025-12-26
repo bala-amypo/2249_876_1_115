@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.String;
 
 @Component
-public class JwtTokenUtil {
+public class JwtUtil {
 
     private final SecretKey key;
     private final long expirationMs;
 
-    public JwtTokenUtil(@Value("${jwt.secret}") String secret,@Value("${jwt.expiration}") long expirationMs) {
+    public JwtUtil(@Value("${jwt.secret}") String secret,@Value("${jwt.expiration}") long expirationMs) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.expirationMs = expirationMs;
     }
