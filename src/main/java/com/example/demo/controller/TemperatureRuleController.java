@@ -1,28 +1,35 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.TemperatureRule;
-import com.example.demo.service.TemperatureRuleService;
+import com.example.demo.repository.TemperatureRuleRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/rules")
+@RequestMapping("/api/temperature-rules")
 public class TemperatureRuleController {
 
-    private final TemperatureRuleService temperatureRuleService;
+    private final TemperatureRuleRepository ruleRepository;
 
-    public TemperatureRuleController(TemperatureRuleService temperatureRuleService) {
-        this.temperatureRuleService = temperatureRuleService;
+    public TemperatureRuleController(
+            TemperatureRuleRepository ruleRepository) {
+        this.ruleRepository = ruleRepository;
     }
 
     @PostMapping
-    public TemperatureRule createRule(@RequestBody TemperatureRule rule) {
-        return temperatureRuleService.createRule(rule);
+    public TemperatureRule createRule(
+            @RequestBody TemperatureRule rule) {
+        return ruleRepository.save(rule);
+    }
+
+    @GetMapping
+    public List<TemperatureRule> getAllRules() {
+        return ruleRepository.findAll();
     }
 
     @GetMapping("/active")
     public List<TemperatureRule> getActiveRules() {
-        return temperatureRuleService.getActiveRules();
+        return ruleRepository.findByActiveTrue();
     }
 }
