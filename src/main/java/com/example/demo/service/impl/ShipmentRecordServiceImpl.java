@@ -1,44 +1,50 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.ShipmentRecord;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.ShipmentRecordRepository;
-import com.example.demo.service.ShipmentRecordService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.ShipmentRecord;
+import com.example.demo.repository.ShipmentRecordRepository;
+import com.example.demo.service.ShipmentRecordService;
 
 @Service
 public class ShipmentRecordServiceImpl implements ShipmentRecordService {
 
-    private final ShipmentRecordRepository shipmentRepo;
+    private final ShipmentRecordRepository repository;
 
-    public ShipmentRecordServiceImpl(ShipmentRecordRepository shipmentRepo) {
-        this.shipmentRepo = shipmentRepo;
+    public ShipmentRecordServiceImpl(ShipmentRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public ShipmentRecord createShipment(ShipmentRecord shipment) {
-        return shipmentRepo.save(shipment);
+        return repository.save(shipment);
     }
 
     @Override
-    public ShipmentRecord updateShipmentStatus(Long id, String newStatus) {
-        ShipmentRecord ship = shipmentRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));
-
-        ship.setStatus(newStatus);
-        return shipmentRepo.save(ship);
+    public ShipmentRecord updateShipmentStatus(Long id, String status) {
+        ShipmentRecord shipment = repository.findById(id).orElse(null);
+        if (shipment != null) {
+            shipment.setStatus(status);
+            return repository.save(shipment);
+        }
+        return null;
     }
 
     @Override
-    public Optional<ShipmentRecord> getShipmentByCode(String shipmentCode) {
-        return shipmentRepo.findByShipmentCode(shipmentCode);
+    public Optional<ShipmentRecord> getShipmentByCode(String code) {
+        return repository.findByShipmentCode(code);
+    }
+
+    @Override
+    public ShipmentRecord getShipmentById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<ShipmentRecord> getAllShipments() {
-        return shipmentRepo.findAll();
+        return repository.findAll();
     }
 }
