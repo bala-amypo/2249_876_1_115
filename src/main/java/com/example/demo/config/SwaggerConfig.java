@@ -19,7 +19,7 @@ public class SwaggerConfig {
                         .description("Swagger API documentation")
                         .version("1.0"))
                 .servers(List.of(
-                        new Server().url("http://localhost:9001")
+                        new Server().url("https://9139.32procr.amypo.ai")
                 ));
     }
 }
