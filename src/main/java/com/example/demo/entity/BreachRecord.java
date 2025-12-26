@@ -1,41 +1,8 @@
-package com.example.demo.entity;
+package com.example.demo.repository;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import com.example.demo.entity.BreachRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Entity
-public class BreachRecord {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    private Long shipmentId;
-    private Double breachValue;
-    private String severity;
-    private Boolean resolved;
-    private LocalDateTime detectedAt;
-
-    @PrePersist
-    public void init() {
-        resolved = false;
-        detectedAt = LocalDateTime.now();
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getShipmentId() { return shipmentId; }
-    public void setShipmentId(Long shipmentId) { this.shipmentId = shipmentId; }
-
-    public Double getBreachValue() { return breachValue; }
-    public void setBreachValue(Double breachValue) {
-        this.breachValue = breachValue;
-    }
-
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
-
-    public Boolean getResolved() { return resolved; }
-    public LocalDateTime getDetectedAt() { return detectedAt; }
+public interface BreachRecordRepository
+        extends JpaRepository<BreachRecord, Long> {
 }
