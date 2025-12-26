@@ -1,30 +1,41 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.AlertRecord;
-import com.example.demo.repository.AlertRecordRepository;
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.AlertRecord;
+import com.example.demo.service.AlertService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/alerts")
+@Tag(name = "Alerts")
 public class AlertRecordController {
 
-    private final AlertRecordRepository alertRepository;
+    private final AlertService service;
 
-    public AlertRecordController(
-            AlertRecordRepository alertRepository) {
-        this.alertRepository = alertRepository;
+    public AlertRecordController(AlertService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public AlertRecord createAlert(
-            @RequestBody AlertRecord alert) {
-        return alertRepository.save(alert);
+    public AlertRecord create(@RequestBody AlertRecord alert) {
+        return service.triggerAlert(alert);
+    }
+
+    @PutMapping("/{id}/acknowledge")
+    public AlertRecord acknowledge(@PathVariable Long id) {
+        return service.acknowledgeAlert(id);
+    }
+
+    @GetMapping("/{id}")
+    public AlertRecord getById(@PathVariable Long id) {
+        return service.getAlertById(id);
     }
 
     @GetMapping
-    public List<AlertRecord> getAllAlerts() {
-        return alertRepository.findAll();
+    public List<AlertRecord> getAll() {
+        return service.getAllAlerts();
     }
 }
