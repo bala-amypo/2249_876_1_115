@@ -9,7 +9,7 @@ import com.example.demo.service.TemperatureLogService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/logs")
+@RequestMapping("/api/logs")    
 @Tag(name = "Temperature Logs")
 public class TemperatureLogController {
 
